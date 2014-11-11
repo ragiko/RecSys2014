@@ -26,9 +26,12 @@ public class QueryExecutor {
 		// creation of a sparql query for getting all the resources connected to resource
 		//the FILTER isIRI is used to get only resources, so this query descards any literal or data-type
 
-		q = " SELECT * WHERE {{" + " ?s " + propQuery + " " + resourceQuery
-				+ ".   " + "FILTER isIRI(?s). " + " } UNION {" + resourceQuery + " "
-				+ propQuery + "  ?o " + "FILTER isIRI(?o). " + "}}";
+		q = "SELECT ?o WHERE { " 
+			+ resourceQuery + " " + propQuery +
+			" ?o. }";
+		
+		System.out.println("executing query  : " + q.toString());
+		
 		try {
 			query = QueryFactory.create(q);
 
@@ -123,7 +126,7 @@ public class QueryExecutor {
 		QueryExecutor exec = new QueryExecutor();
 		//get all the triples related to the predicate http://dbpedia.org/ontology/starring
 		//wherein the Godfather appears as subject or object	
-		exec.exec("http://dbpedia.org/resource/Orphans_of_Chaos","http://dbpedia.org/page/The_Russian_Messenger");
+		exec.exec("http://dbpedia.org/resource/Orphans_of_Chaos","http://dbpedia.org/ontology/abstract");
 		
 		//get all the triples that involve the Godfather	
 		// exec.exec("http://dbpedia.org/resource/The_Godfather");
